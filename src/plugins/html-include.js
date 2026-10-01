@@ -60,6 +60,20 @@ function renderIcons(html, root) {
   });
 }
 
+// Только для дев-сервера. В dev Vite подключает стили через js, и страница на миг показывается без них
+// (особенно заметно с плавным переходом между страницами). Переносим module-скрипты в <head>
+// с blocking="render": браузер не рисует страницу, пока они не выполнятся и не вставят стили.
+// В сборке это не нужно — там стили лежат обычными <link> в <head>.
+const MODULE_SCRIPT_RE = /[ \t]*<script type="module" src="[^"]+"><\/script>\n?/g;
+
+function blockRenderUntilStyled(html) {
+  const scripts = html.match(MODULE_SCRIPT_RE);
+  if (!scripts) return html;
+
+  const blocking = scripts.map((tag) => tag.replace('<script ', '<script blocking="render" ')).join('');
+  return html.replace(MODULE_SCRIPT_RE, '').replace('</head>', `${blocking}  </head>`);
+}
+
 export default function htmlInclude() {
   let root;
 
@@ -70,7 +84,10 @@ export default function htmlInclude() {
     },
     transformIndexHtml: {
       order: 'pre',
-      handler: (html) => renderIcons(render(html, root), root),
+      handler: (html, ctx) => {
+        const out = renderIcons(render(html, root), root);
+        return ctx.server ? blockRenderUntilStyled(out) : out;
+      },
     },
     configureServer(server) {
       // при правке html-партиала или иконки перезагружаем страницу
