@@ -1,0 +1,76 @@
+@use "@/styles/abstracts" as *;
+
+// Кнопка-«таблетка» из карточек услуг и баннера обучения.
+// <a class="btn" href="#">Заполнить бриф <span class="btn__arrow"></span></a>
+// <a class="btn btn--gray" href="#">Узнать подробнее</a>
+// <a class="btn btn--dark" href="#">Обсудить проект</a>
+.btn {
+  position: relative;
+  z-index: 0;
+  @include flex-center;
+  gap: 10px;
+  min-height: 50px;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: $gradient-orange;
+  font-family: $font-accent;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: nowrap;
+  color: $white;
+  transition: color 0.3s;
+
+  // слой для состояния наведения: градиенты не анимируются, поэтому он проявляется через opacity
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  @include hover {
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  // «Узнать подробнее»: при наведении темнеет градиентом (состояние из UI-кита)
+  &--gray {
+    background: $gray-btn;
+
+    &::before {
+      background: $gradient-gray-hover;
+    }
+  }
+
+  // «Обсудить проект»: при наведении становится белой с тёмным текстом
+  &--dark {
+    background: $graphite;
+
+    &::before {
+      background: $white;
+    }
+
+    @include hover {
+      color: $graphite;
+    }
+  }
+
+  // стрелка вытягивается при наведении; в мобильном макете кнопки без стрелок
+  &__arrow {
+    @include arrow(23px);
+
+    .btn:hover &,
+    .btn:focus-visible & {
+      width: 60px;
+    }
+
+    @include media("md") {
+      display: none;
+    }
+  }
+}

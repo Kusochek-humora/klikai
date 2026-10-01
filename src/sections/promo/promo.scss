@@ -1,0 +1,133 @@
+@use "@/styles/abstracts" as *;
+
+// Оранжевый баннер «Обучение и мастер-классы» под карточками услуг.
+// На главной в макете он пустой, без текста и фото: <div class="promo promo--empty"></div>
+.promo {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  min-height: 355px;
+  margin-top: 40px;
+  padding: 30px;
+  border-radius: 40px;
+  // волна и звёзды — картинкой из Figma, прижаты к правому краю; под ними фирменный градиент
+  background:
+    url("@/assets/img/promo/bg-desktop.svg") right center / auto 100% no-repeat,
+    $gradient-orange;
+  color: $white;
+
+  // мобильный макет: волна внизу, под текстом; 34% — её высота относительно ширины баннера
+  @include media("lg") {
+    min-height: 0;
+    margin-top: 20px;
+    padding: 20px 20px 34%;
+    border-radius: 30px;
+    background:
+      url("@/assets/img/promo/bg-mobile.svg") center bottom / 100% auto no-repeat,
+      $gradient-orange;
+  }
+
+  &--empty {
+    @include media("lg") {
+      aspect-ratio: 2 / 1;
+      padding: 0;
+    }
+
+    @include media("sm") {
+      aspect-ratio: 350 / 489;
+    }
+  }
+
+  &__content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: min(570px, 55%); // правее — фото
+
+    @include media("lg") {
+      max-width: none;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  // перенос после «Обучение» — только в мобильном макете
+  &__br {
+    display: none;
+
+    @include media("sm") {
+      display: inline;
+    }
+  }
+
+  &__lead {
+    margin-top: 48px;
+    font-family: $font-accent;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+
+    @include media("lg") {
+      margin-top: 20px;
+      font-size: 16px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 47px;
+    padding-left: 1.5em;
+    list-style: disc;
+    font-family: $font-accent;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+
+    @include media("lg") {
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 7px;
+    margin-top: auto;
+
+    .btn {
+      flex: 1 1 0;
+    }
+
+    @include media("md") {
+      flex-direction: column;
+
+      .btn {
+        flex-basis: auto;
+      }
+    }
+  }
+
+  &__photo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: 100%;
+    max-height: 355px;
+
+    @include media("lg") {
+      display: none;
+    }
+  }
+}

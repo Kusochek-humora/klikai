@@ -1,0 +1,208 @@
+@use "@/styles/abstracts" as *;
+
+// Тёмный блок «Основаны в 2020 году» на «О компании»: слева заголовок и кнопка, справа карточка
+// «9+ лет опыта», ниже фотографии команды.
+// Размеры сняты со скриншотов макета (Figma была недоступна) — сверить с макетом
+.team {
+  margin-top: 80px;
+  padding: 60px 0;
+  border-radius: 40px;
+  background: $gradient-dark-section;
+  color: $white;
+
+  @include media("md") {
+    margin-top: 60px;
+    padding: 40px 0;
+  }
+
+  // десктоп: сетка из 4 колонок.
+  //   заголовок | заголовок | карточка | карточка
+  //   кнопка    | кнопка    | карточка | карточка
+  //   текст     | три больших фото
+  //   шесть маленьких фото
+  &__inner {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @include media("md") {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  &__intro {
+    grid-column: 1 / 3;
+
+    @include media("md") {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: fluid(20px, 32px);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    max-width: 420px;
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.3;
+  }
+
+  &__card {
+    position: relative;
+    grid-row: 1 / 3;
+    grid-column: 3 / 5;
+    overflow: hidden;
+    border-radius: 40px;
+    background-color: #e9e9e9;
+    color: $black;
+
+    @include media("md") {
+      grid-row: auto;
+      grid-column: 1 / -1;
+      border-radius: 30px;
+    }
+  }
+
+  // карточка собрана из двух картинок с прозрачным фоном: большая девятка и мужчина с телефоном
+  &__card {
+    aspect-ratio: 630 / 470;
+
+    @include media("md") {
+      aspect-ratio: 350 / 440;
+    }
+  }
+
+  &__card-nine,
+  &__card-man {
+    position: absolute;
+    bottom: 0;
+    width: auto;
+    @include decor;
+  }
+
+  &__card-nine {
+    right: 0;
+    height: 96%;
+    z-index: 0;
+
+    // на мобильном девятка стоит по центру карточки, за мужчиной
+    @include media("md") {
+      right: auto;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__card-man {
+    left: 0;
+    height: 100%;
+
+    @include media("md") {
+      left: 50%;
+      height: 82%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__card-title {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: fluid(20px, 28px);
+    line-height: 1.2;
+    text-transform: uppercase;
+    z-index: 2;
+
+    @include media("md") {
+      top: 20px;
+      right: auto;
+      left: 20px;
+    }
+  }
+
+  // крупная кнопка «Стать клиентом»
+  &__btn {
+    grid-column: 1 / 3;
+    align-self: end;
+    justify-self: start;
+    min-width: 410px;
+    min-height: 92px;
+    margin-bottom: 4px;
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: 28px;
+
+    @include media("lg") {
+      min-width: 280px;
+      min-height: 70px;
+      font-size: 20px;
+    }
+
+    @include media("md") {
+      grid-column: 1 / -1;
+      justify-self: stretch;
+      min-width: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__about {
+    margin-top: 0;
+  }
+
+  &__big,
+  &__small {
+    display: grid;
+    gap: 20px;
+  }
+
+  // три больших фото: на десктопе в ряд справа от текста, на мобильном — столбиком справа от него
+  &__big {
+    grid-column: 2 / 5;
+    grid-template-columns: repeat(3, 1fr);
+
+    @include media("md") {
+      grid-column: 2;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  &__small {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(6, 1fr);
+
+    @include media("md") {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+  }
+
+  &__photo {
+    overflow: hidden;
+    border-radius: 30px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+
+    &--big img {
+      aspect-ratio: 305 / 230;
+    }
+
+    @include media("md") {
+      border-radius: 20px;
+    }
+  }
+}

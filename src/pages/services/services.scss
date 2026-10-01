@@ -1,0 +1,14 @@
+@use "@/styles/abstracts" as *;
+
+.services {
+  padding-top: 24px;
+
+  @include media("md") {
+    padding-top: 20px;
+  }
+
+  // до бейджа первой карточки — 20px, как в макете (ещё 18px добавляет сама карточка)
+  &__title {
+    margin-bottom: 20px;
+  }
+}

@@ -1,0 +1,229 @@
+@use "@/styles/abstracts" as *;
+
+// «Почему выбирают Кликай»: тёмный блок на всю ширину.
+// Три раскладки:
+//   шире 1280 — карточки разбросаны, как в десктопном макете (координаты из Figma);
+//   до 1280   — обычная сетка в три колонки (в «разбросе» карточкам уже тесно);
+//   до 768    — столбик «зигзагом», как в мобильном макете
+.why {
+  // размеры десктопного «разброса». На главной блок компактнее — там эти значения
+  // переопределяются в src/pages/home/home.scss
+  --why-height: 837px;
+  --why-card-height: 333px;
+  --why-top-2: 128px; // «Система, а не хаос»
+  --why-top-4: 358px; // «Опыт на 80+ проектах»
+  --why-top-5: 481px; // «Личный маркетолог»
+  --why-star: 339px;
+  --why-star-top: 515px;
+
+  position: relative;
+  overflow: hidden;
+  margin-top: 80px;
+  padding: 60px 0;
+  border-radius: 40px;
+  background: $gradient-dark-section;
+  color: $white;
+
+  @include media("md") {
+    margin-top: 60px;
+    padding: 40px 0 22px;
+  }
+
+  // звёзды на мобильном: одна выглядывает справа сверху, вторая — слева снизу
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    display: none;
+    width: 170px;
+    height: 170px;
+    background: url("@/assets/img/decor/star.svg") center / contain no-repeat;
+
+    @include media("md") {
+      display: block;
+    }
+  }
+
+  &::before {
+    top: 162px;
+    right: -60px;
+  }
+
+  &::after {
+    bottom: 22px;
+    left: -35px;
+  }
+
+  &__inner {
+    position: relative;
+    height: var(--why-height);
+
+    @include media("xl") {
+      height: auto;
+    }
+
+    // большая звезда по центру внизу
+    &::before {
+      content: "";
+      position: absolute;
+      top: var(--why-star-top);
+      left: calc(50% - var(--why-star) / 2 - 5px);
+      width: var(--why-star);
+      height: var(--why-star);
+      background: url("@/assets/img/decor/star.svg") center / contain no-repeat;
+
+      // в сетке 3×2 звезда занимает пустую шестую ячейку
+      @include media("xl") {
+        top: auto;
+        right: calc(20px + (100% - 80px) / 6 - 120px);
+        bottom: 0;
+        left: auto;
+        width: 240px;
+        height: 240px;
+      }
+
+      @include media("md") {
+        display: none;
+      }
+    }
+  }
+
+  &__title {
+    position: relative;
+    max-width: 350px;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: fluid(20px, 32px);
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    @include media("xl") {
+      max-width: none;
+      margin-bottom: 30px;
+    }
+  }
+
+  &__accent {
+    display: block;
+    color: $orange;
+
+    @include media("xl") {
+      display: inline;
+    }
+
+    @include media("md") {
+      display: block;
+    }
+  }
+
+  &__list {
+    @include media("xl") {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @include media("md") {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__card {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    width: 305px;
+    height: var(--why-card-height);
+    padding: 20px;
+    border: 1px solid $gray-border;
+    border-radius: 30px;
+
+    // координаты из макета 1440px, относительно контейнера 1280px
+    &:nth-child(1) {
+      top: 5px;
+      left: calc(20px + 325 / 1280 * (100% - 40px));
+    }
+
+    &:nth-child(2) {
+      top: var(--why-top-2);
+      left: calc(20px + 650 / 1280 * (100% - 40px));
+    }
+
+    &:nth-child(3) {
+      top: 5px;
+      right: 20px;
+    }
+
+    &:nth-child(4) {
+      top: var(--why-top-4);
+      left: calc(20px + 108 / 1280 * (100% - 40px));
+    }
+
+    &:nth-child(5) {
+      top: var(--why-top-5);
+      left: calc(20px + 867 / 1280 * (100% - 40px));
+    }
+
+    // z-index у элементов сетки и флекса работает без position — карточки остаются над звёздами
+    @include media("xl") {
+      position: static;
+      z-index: 1;
+      width: auto;
+      height: auto;
+      min-height: 240px;
+    }
+
+    // мобильный макет: узкие карточки по очереди слева и справа, третья — на всю ширину
+    @include media("md") {
+      width: 250px;
+      max-width: 100%;
+      min-height: 200px;
+
+      &:nth-child(2),
+      &:nth-child(5) {
+        align-self: flex-end;
+      }
+
+      &:nth-child(3) {
+        width: 100%;
+        max-width: none;
+      }
+    }
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.2;
+    text-transform: uppercase;
+
+    @include media("md") {
+      font-size: 16px;
+
+      // в мобильном макете заголовки переносятся сами, без принудительных разрывов
+      br {
+        display: none;
+      }
+    }
+  }
+
+  &__text {
+    font-family: $font-accent;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+    color: rgba($white, 0.7);
+
+    // в мобильном макете описание набрано Raleway Medium, а не Inter
+    @include media("md") {
+      font-family: $font-main;
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+}

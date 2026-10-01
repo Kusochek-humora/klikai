@@ -1,0 +1,37 @@
+@use "../abstracts" as *;
+
+// Заголовок секции: «Мы знаем, с чего вы устали», «Этапы сотрудничества»
+// макет: 32px на десктопе, 24px на мобильном
+.title {
+  font-family: $font-heading;
+  font-weight: 700;
+  font-size: fluid(20px, 32px);
+  line-height: 1.2;
+  letter-spacing: -0.011em;
+  text-transform: uppercase;
+  text-align: center;
+  // text-wrap: balance;
+  color: $orange;
+
+  // Заголовок страницы (h1): «Пакеты услуг», «Кейсы», «Контакты»
+  // макет: 48px / 32px, слева, градиентом
+  &--page {
+    font-size: fluid(32px, 48px);
+    text-align: left;
+    @include text-gradient;
+  }
+}
+
+// Подзаголовок под заголовком секции: «Мы работаем с компаниями…»
+// макет: Raleway Medium 16px (14px на мобильном), по центру, 13px от заголовка
+.subtitle {
+  max-width: 771px;
+  margin: 13px auto 0;
+  font-size: 16px;
+  line-height: 1.2;
+  text-align: center;
+
+  @include media("md") {
+    font-size: 14px;
+  }
+}

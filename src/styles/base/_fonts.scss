@@ -1,17 +1,40 @@
 // Локальные шрифты: файлы .woff2 — в src/assets/fonts/<семейство>/
 //
-// @include font-face('Involve', 'involve/Involve-Regular', 400);
-// @include font-face('Involve', 'involve/Involve-Bold', 700);
+// Шрифты вариативные (ось wght) и разбиты на сабсеты: браузер качает только те файлы,
+// символы которых есть на странице. Один файл покрывает все начертания из диапазона $weight.
+//
+// @include font-face('Raleway', 'raleway/raleway', 100 900);
+// @include font-face('Raleway', 'raleway/raleway', 100 900, italic);
 //
 // Если буквы в строке сидят выше/ниже, чем в Figma (разные метрики hhea / win в шрифте),
 // добавить в @font-face ascent-override / descent-override / line-gap-override.
 
+// latin — базовая латиница, цифры, пунктуация; cyrillic — русский; cyrillic-ext — казахские буквы (ә ғ қ ң ө ү һ)
+$subsets: (
+  'cyrillic-ext': 'U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F',
+  'cyrillic': 'U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116',
+  'latin': 'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD'
+);
+
 @mixin font-face($family, $file, $weight, $style: normal) {
-  @font-face {
-    font-family: $family;
-    src: url('@/assets/fonts/#{$file}.woff2') format('woff2');
-    font-weight: $weight;
-    font-style: $style;
-    font-display: swap;
+  @each $subset, $range in $subsets {
+    @font-face {
+      font-family: $family;
+      src: url('@/assets/fonts/#{$file}-#{$subset}-wght-#{$style}.woff2') format('woff2');
+      font-weight: $weight;
+      font-style: $style;
+      font-display: swap;
+      unicode-range: #{$range};
+    }
   }
 }
+
+// В макете: Regular 400, Medium 500 (+ Italic), SemiBold 600, Bold 700
+@include font-face('Raleway', 'raleway/raleway', 100 900);
+@include font-face('Raleway', 'raleway/raleway', 100 900, italic);
+
+// В макете: Regular 400, Medium 500, Bold 700
+@include font-face('Unbounded', 'unbounded/unbounded', 200 900);
+
+// В макете: Regular 400, SemiBold 600, Bold 700
+@include font-face('Inter', 'inter/inter', 100 900);

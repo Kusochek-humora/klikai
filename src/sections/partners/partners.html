@@ -1,0 +1,23 @@
+<section class="partners" aria-labelledby="partners-title">
+  <div class="container">
+    <h2 class="title" id="partners-title">Нам доверяют лидеры рынка</h2>
+    <p class="subtitle">
+      Мы работаем с компаниями, которые выбирают результат, а не красивые слова. Среди наших партнёров —
+      международные бренды и сильные локальные бизнесы.
+    </p>
+  </div>
+
+  <!-- бегущая строка: две одинаковые половины, вторая нужна только для бесшовной прокрутки -->
+  <div class="partners__marquee">
+    <div class="partners__track">
+      <div class="partners__half">
+        <include src="src/sections/partners/partners-logos.html"></include>
+        <include src="src/sections/partners/partners-logos.html"></include>
+      </div>
+      <div class="partners__half" aria-hidden="true">
+        <include src="src/sections/partners/partners-logos.html"></include>
+        <include src="src/sections/partners/partners-logos.html"></include>
+      </div>
+    </div>
+  </div>
+</section>

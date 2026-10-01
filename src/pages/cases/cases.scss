@@ -1,0 +1,24 @@
+@use "@/styles/abstracts" as *;
+
+.cases {
+  padding-top: 24px;
+  padding-bottom: 80px;
+
+  @include media("md") {
+    padding-top: 20px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @include media("md") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}

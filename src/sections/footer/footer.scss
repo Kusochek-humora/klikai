@@ -1,0 +1,197 @@
+@use "@/styles/abstracts" as *;
+
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: 60px 0;
+  background: $gradient-dark;
+  color: $white;
+
+  @include media("lg") {
+    padding: 33px 0 50px;
+  }
+
+  // звезда на фоне: в макете 442px, на десктопе чуть правее центра, на мобильном — по центру
+  &__decor {
+    position: absolute;
+    top: -4px;
+    left: calc(50% - 55px);
+    width: 450px;
+    height: 450px;
+    pointer-events: none;
+
+    // мобильный макет: звезда 389px, по центру, 119px от верха футера.
+    // 396px и 115px — те же размеры с учётом прозрачных полей в svg (4px из 450).
+    // На экранах уже 396px звезда сжимается по ширине экрана и остаётся по центру
+    @include media("lg") {
+      top: 115px;
+      left: 50%;
+      width: min(100vw, 396px);
+      height: auto;
+      aspect-ratio: 1;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__inner {
+    position: relative;
+    display: flex;
+    gap: 16px;
+
+    @include media("lg") {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+
+  &__logo {
+    flex-shrink: 0;
+    width: clamp(240px, 24vw, 309px);
+    color: inherit;
+
+    .icon {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    @include media("lg") {
+      width: 112px;
+    }
+  }
+
+  // на десктопе — две колонки: слева контакты и соцсети, справа меню и политика.
+  // На мобильном обёртки «растворяются», и блоки идут в порядке макета через order
+  &__info,
+  &__side {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include media("lg") {
+      display: contents;
+    }
+  }
+
+  &__info {
+    gap: 30px;
+    padding-bottom: 20px;
+  }
+
+  &__side {
+    align-items: flex-end;
+    margin-left: auto;
+    padding-bottom: 8px;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    @include media("lg") {
+      order: 2;
+      margin-top: 40px;
+    }
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-size: 20px;
+    line-height: 1.5;
+  }
+
+  &__phone {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 1.2;
+    white-space: nowrap;
+    color: inherit;
+    transition: color 0.3s;
+
+    @include hover {
+      color: $orange;
+    }
+
+    // между 1024 и 1280 колонкам тесно: номер меньше, чтобы не упирался в меню
+    @include media("xl") {
+      font-size: 28px;
+    }
+
+    @include media("lg") {
+      font-size: 30px;
+    }
+
+    @include media("xs") {
+      font-size: 26px;
+    }
+  }
+
+  &__socials {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(20px, 2.5vw, 32px);
+    font-size: 16px;
+    line-height: 1.2;
+
+    @include media("lg") {
+      order: 3;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 10px 16px;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  }
+
+  &__nav {
+    @include media("lg") {
+      order: 1;
+      margin-top: 54px;
+    }
+  }
+
+  // два столбца по три пункта: Главная / О компании / Услуги и Кейсы / Блог / Контакты
+  &__nav-list {
+    display: grid;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    gap: 40px 103px;
+    font-size: 20px;
+    line-height: 1.5;
+
+    // столбцы разнесены по краям, зазор между ними — только минимальный
+    @include media("lg") {
+      justify-content: space-between;
+      column-gap: 20px;
+      white-space: nowrap;
+    }
+  }
+
+  &__legal {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: right;
+    color: rgba($white, 0.7);
+
+    @include media("lg") {
+      order: 4;
+      margin-top: 40px;
+      text-align: left;
+    }
+  }
+
+  &__link {
+    color: inherit;
+    transition: color 0.3s;
+
+    @include hover {
+      color: $orange;
+    }
+  }
+}

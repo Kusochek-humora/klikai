@@ -1,0 +1,64 @@
+@use "@/styles/abstracts" as *;
+
+// На главной блок «Почему выбирают» в макете ниже: 692px вместо 957, карточки 222px вместо 333,
+// описание набрано Raleway. Значения — координаты из макета главной.
+// «main >» — чтобы правило было сильнее базового .why независимо от порядка загрузки стилей
+main > .why {
+  --why-height: 572px;
+  --why-card-height: 222px;
+  --why-top-2: 87px;
+  --why-top-4: 241px;
+  --why-top-5: 323px;
+  --why-star: 309px;
+  --why-star-top: 308px;
+
+  .why__text {
+    font-family: $font-main;
+    font-weight: 500;
+  }
+}
+
+// «Предназначение» идёт сразу за первым экраном: отступ даёт сам hero
+.hero-anchor + .purpose {
+  margin-top: 40px;
+}
+
+// «Наши услуги — это не процесс, а результат»
+.home-services {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__title {
+    max-width: 700px;
+    margin: 0 auto 20px;
+  }
+}
+
+// «Маркетинг простыми словами»
+.home-blog {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  .blog-row {
+    margin-top: 50px;
+
+    @include media("md") {
+      margin-top: 20px;
+    }
+  }
+}
+
+// на главной форма стоит ближе к предыдущему блоку, чем на остальных страницах (80px вместо 140)
+main > .feedback {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+}

@@ -1,0 +1,44 @@
+@use "@/styles/abstracts" as *;
+
+// Карточка статьи: главная, блог, «Вам может быть интересно».
+// Ширину задаёт сетка, в которой карточка лежит (в макете 305px на десктопе, 349px на мобильном)
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: $dark;
+
+  &__img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 305 / 221;
+    border-radius: 20px;
+    object-fit: cover;
+
+    // на мобильном карточка шире (349px), а высота картинки в макете та же — 221px
+    @include media("sm") {
+      aspect-ratio: 349 / 221;
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+    transition: color 0.3s;
+  }
+
+  &__date {
+    font-size: 14px;
+    line-height: 1.2;
+    text-align: right;
+    color: rgba($black, 0.6);
+  }
+
+  @include hover {
+    .blog-card__title {
+      color: $orange;
+    }
+  }
+}

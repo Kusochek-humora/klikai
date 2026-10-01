@@ -1,16 +1,311 @@
 @use "@/styles/abstracts" as *;
 
-.header {
-  padding: 16px 0;
+:root {
+  --header-height: 149px;
+  // отступы между пунктами меню сжимаются с 40px (1280) до 16px (1024), чтобы шапка влезала до бургера
+  --header-gap: clamp(16px, 9.375vw - 80px, 40px);
 
-  &__container {
+  @include media("lg") {
+    --header-height: 121px;
+  }
+}
+
+// меню открыто — страница под ним не скроллится
+html.is-locked {
+  overflow: hidden;
+}
+
+// шапка fixed и из потока выпадает: на светлых страницах контент отступает на её высоту,
+// на страницах с <body data-header="dark"> первый блок (тёмный hero) заходит под шапку
+.header + main {
+  padding-top: var(--header-height);
+}
+
+[data-header="dark"] .header + main {
+  padding-top: 0;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  padding: 20px 0;
+  color: $black;
+  transition:
+    padding 0.3s,
+    color 0.3s;
+
+  [data-header="dark"] &,
+  &.is-menu-open {
+    color: $white;
+  }
+
+  // фон появляется при скролле. Он на псевдоэлементе, а не на самой шапке:
+  // backdrop-filter на .header сломал бы position: fixed у мобильного меню внутри неё
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: rgba($white, 0.85);
+    backdrop-filter: blur(20px);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+
+    [data-header="dark"] & {
+      background-color: rgba($ink, 0.7);
+    }
+  }
+
+  &.is-scrolled {
+    padding: 10px 0;
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  &.is-menu-open::before {
+    opacity: 0;
+  }
+
+  @include media("lg") {
+    padding: 25px 0 20px;
+  }
+
+  &__inner {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: flex-start;
   }
 
   &__logo {
-    margin-right: auto;
-    font-weight: 700;
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    width: 99px;
+    color: inherit;
+    transition: width 0.3s;
+
+    .icon {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .is-scrolled & {
+      width: 52px;
+    }
+
+    @include media("lg") {
+      width: 69px;
+
+      .is-scrolled & {
+        width: 45px;
+      }
+    }
+  }
+
+  &__menu {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-top: 4px;
+    margin-left: auto;
+
+    @include media("lg") {
+      position: fixed;
+      inset: 0;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 40px;
+      height: auto;
+      margin: 0;
+      padding: 168px $container-padding 50px;
+      overflow-y: auto;
+      background-color: rgba($black, 0.5);
+      backdrop-filter: blur(20px);
+      opacity: 0;
+      visibility: hidden;
+      transition:
+        opacity 0.3s,
+        visibility 0.3s;
+
+      .is-menu-open & {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    // поля меню — как у .container
+    @include media("xs") {
+      padding-right: 10px;
+      padding-left: 10px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    gap: var(--header-gap);
+
+    @include media("lg") {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__link {
+    font-size: 14px;
+    line-height: 1.2;
+    color: inherit;
+    white-space: nowrap;
+    transition: opacity 0.3s;
+
+    @include hover {
+      opacity: 0.6;
+    }
+
+    &[aria-current="page"] {
+      opacity: 0.6;
+    }
+
+    @include media("lg") {
+      font-weight: 600;
+      font-size: 20px;
+    }
+  }
+
+  &__menu-contacts {
+    display: none;
+
+    @include media("lg") {
+      display: flex;
+      gap: 8px;
+    }
+
+    // на самых узких экранах телефон не помещается в ряд с соцсетями: уходит на вторую строку
+    @include media("xs") {
+      flex-wrap: wrap;
+
+      .header__btn--phone {
+        flex-basis: 100%;
+      }
+    }
+  }
+
+  &__actions {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+    margin-top: 4px;
+    margin-left: var(--header-gap);
+
+    @include media("lg") {
+      margin-top: 0;
+      margin-left: auto;
+    }
+  }
+
+  // круглая кнопка: соцсети, бургер; с модификатором --phone — «таблетка» с телефоном
+  &__btn {
+    position: relative;
+    z-index: 0;
+    @include flex-center;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: $gradient-orange;
+    color: $white;
+    transition: color 0.3s;
+
+    // при наведении кнопка белеет, остаётся градиентная обводка в 1px.
+    // Градиент не анимируется, поэтому белый слой лежит сверху и проявляется через opacity
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      z-index: -1;
+      border-radius: inherit;
+      background-color: $white;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    @include hover {
+      color: $orange;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    &--phone {
+      width: auto;
+      min-width: 201px;
+      padding: 0 20px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 1.5;
+      white-space: nowrap;
+    }
+
+    // телефон в мобильном меню тянется на всю оставшуюся ширину
+    .header__menu-contacts &--phone {
+      flex-grow: 1;
+    }
+
+    &--desktop {
+      @include media("lg") {
+        display: none;
+      }
+    }
+
+    // YouTube в макете есть только в тёмной шапке главной
+    &--youtube {
+      body:not([data-header="dark"]) & {
+        display: none;
+      }
+    }
+
+    // соцсети в шапке прячутся, пока открыто меню: там есть свои
+    &--social {
+      .is-menu-open & {
+        display: none;
+      }
+    }
+  }
+
+  &__burger {
+    display: none;
+
+    @include media("lg") {
+      display: flex;
+    }
+
+    // открытое меню: вместо бургера — крестик в белом кольце
+    .is-menu-open & {
+      border: 1px solid $white;
+      background: none;
+      color: $white;
+
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &__burger-close,
+  .is-menu-open &__burger-open {
+    display: none;
+  }
+
+  .is-menu-open &__burger-close {
+    display: block;
   }
 }

@@ -1,0 +1,65 @@
+@use "@/styles/abstracts" as *;
+
+// «Этапы сотрудничества»: на десктопе строка «номер — название — описание»,
+// на мобильном номер с названием в ряд, описание под ними
+.steps {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+
+    @include media("md") {
+      margin-bottom: 30px;
+    }
+  }
+
+  &__item {
+    display: grid;
+    // колонки из макета: название начинается на 327px, описание — на 759px из 1281
+    grid-template-columns: 25.5% 33.75% 1fr;
+    align-items: start;
+    padding: 20px 0;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      padding-bottom: 0;
+    }
+
+    & + & {
+      border-top: 1px solid $orange;
+    }
+
+    @include media("lg") {
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+    }
+  }
+
+  &__num {
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  &__name {
+    font-family: $font-heading;
+    font-weight: 500;
+    font-size: fluid(20px, 24px);
+    line-height: 1.5;
+  }
+
+  &__text {
+    font-size: 16px;
+    line-height: 1.2;
+
+    @include media("lg") {
+      grid-column: 1 / -1;
+    }
+  }
+}

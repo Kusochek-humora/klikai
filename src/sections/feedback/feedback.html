@@ -1,0 +1,34 @@
+<section class="feedback container" id="feedback" aria-labelledby="feedback-title">
+  <div class="feedback__box">
+    <h2 class="feedback__title" id="feedback-title">Расскажите<br />о вашем проекте</h2>
+
+    <form class="feedback__form" novalidate>
+      <div class="feedback__field">
+        <label class="visually-hidden" for="feedback-name">ФИО</label>
+        <input class="feedback__input" id="feedback-name" type="text" name="name" placeholder="ФИО" autocomplete="name" required />
+        <p class="feedback__error" id="feedback-name-error" hidden></p>
+      </div>
+
+      <div class="feedback__field">
+        <label class="visually-hidden" for="feedback-phone">Телефон</label>
+        <input class="feedback__input" id="feedback-phone" type="tel" name="phone" placeholder="Телефон" autocomplete="tel" inputmode="tel" required />
+        <p class="feedback__error" id="feedback-phone-error" hidden></p>
+      </div>
+
+      <div class="feedback__field">
+        <label class="visually-hidden" for="feedback-comment">Комментарий (необязательно)</label>
+        <input class="feedback__input" id="feedback-comment" type="text" name="comment" placeholder="Комментарий (необязательно)" maxlength="500" />
+        <p class="feedback__error" id="feedback-comment-error" hidden></p>
+      </div>
+
+      <p class="feedback__policy">
+        Нажимая на кнопку, вы соглашаетесь с условиями
+        <a class="feedback__policy-link" href="#">Политики конфиденциальности</a>
+      </p>
+
+      <button class="feedback__submit" type="submit">Оставить заявку</button>
+
+      <p class="feedback__success" role="status" hidden>Спасибо! Заявка отправлена, мы свяжемся с вами.</p>
+    </form>
+  </div>
+</section>

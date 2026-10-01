@@ -1,0 +1,60 @@
+@use "@/styles/abstracts" as *;
+
+// Карточка кейса. Ширину задаёт сетка (в макете 412px на десктопе, 164px на мобильном — по две в ряд).
+// Размеры меняются плавно от 375 до 1280px, чтобы на планшете заголовок не переносился
+.case-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: fluid(10px, 30px, 375px, 1280px);
+  border-radius: fluid(20px, 40px, 375px, 1280px);
+  @include border-gradient($width: 2px);
+
+  &__title {
+    font-weight: 700;
+    font-size: fluid(20px, 32px, 375px, 1280px);
+    line-height: 1.5;
+  }
+
+  &__img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 351 / 193;
+    border-radius: 30px;
+    object-fit: cover;
+  }
+
+  &__btn {
+    @include flex-center;
+    gap: 10px;
+    min-height: 50px;
+    margin-top: auto; // кнопки в ряду на одной линии, даже если заголовок в две строки
+    padding: 10px 20px;
+    border-radius: 100px;
+    background: $gradient-orange;
+    font-size: 14px;
+    line-height: 1.2;
+    color: $white;
+
+    // в узкой карточке (две в ряд) текст «Смотреть кейс» иначе переносится
+    @include media("md") {
+      padding: 10px;
+      white-space: nowrap;
+    }
+  }
+
+  // стрелка: линия с наконечником, при наведении вытягивается (как в UI-ките)
+  &__arrow {
+    @include arrow;
+
+    .case-card__btn:hover &,
+    .case-card__btn:focus-visible & {
+      width: 74px;
+    }
+
+    // в мобильном макете кнопка без стрелки: в карточку шириной 164px она не помещается
+    @include media("md") {
+      display: none;
+    }
+  }
+}

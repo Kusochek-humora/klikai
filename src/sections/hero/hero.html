@@ -1,6 +1,47 @@
-<section class="hero" id="hero">
-  <div class="hero__container container">
-    <h1 class="hero__title" data-i18n="hero.title">Привет, мир!</h1>
-    <p class="hero__text" data-i18n="hero.text">Vite + SCSS + i18next — стартовая сборка.</p>
+<section class="hero">
+  <!-- фон: тёмная фигура с «язычком» снизу и две полупрозрачные копии-«тени» под ней -->
+  <div class="hero__bg" aria-hidden="true"><span></span><span></span><span></span></div>
+
+  <div class="container hero__inner">
+    <div class="hero__content">
+      <h1 class="hero__title">
+        <span class="hero__accent">Маркетинг,</span>
+        который приводит заявки, <br />а не тратит бюджет
+      </h1>
+      <p class="hero__text">
+        Создаём стратегию, запускаем инструменты и доводим до результата. Никаких шаблонов — только подход,
+        завязанный на вашем бизнесе и цифрах.
+      </p>
+      <div class="hero__actions">
+        <a class="btn" href="#feedback">Связаться с нами</a>
+        <a class="btn btn--gray" href="services.html">Перейти к услугам</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <picture>
+        <source media="(max-width: 768px)" srcset="/src/assets/img/hero/speaker-mobile.webp" width="390" height="432" />
+        <img class="hero__img" src="/src/assets/img/hero/speaker-desktop.webp" alt="Виталий Виноградов выступает с микрофоном" width="827" height="556" />
+      </picture>
+
+      <dl class="hero__stats">
+        <div class="hero__stat">
+          <dt>лет <br />в маркетинге</dt>
+          <dd>9+</dd>
+        </div>
+        <div class="hero__stat">
+          <dt>лет <br />в бизнесе</dt>
+          <dd>5+</dd>
+        </div>
+        <div class="hero__stat">
+          <dt>проектов <br />в разных нишах</dt>
+          <dd>80+</dd>
+        </div>
+      </dl>
+    </div>
   </div>
+
+  <a class="hero__down" href="#after-hero" aria-label="Листать вниз"></a>
 </section>
+
+<div class="hero-anchor" id="after-hero"></div>

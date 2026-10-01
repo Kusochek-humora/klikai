@@ -1,0 +1,17 @@
+@use "@/styles/abstracts" as *;
+@use "@/components/service-card/service-card";
+@use "@/sections/promo/promo";
+
+// Вместе с сеткой подключается баннер .promo — он всегда стоит под ней.
+// Сетка пакетов услуг: 2×2 на десктопе, в столбик на мобильном.
+// Между рядами в макете 40px, из них 18px — отступ самой карточки под бейдж
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 20px;
+
+  @include media("lg") {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

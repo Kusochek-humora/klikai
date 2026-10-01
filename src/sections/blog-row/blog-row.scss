@@ -1,0 +1,39 @@
+@use "@/styles/abstracts" as *;
+@use "@/components/blog-card/blog-card";
+
+// Ряд из четырёх статей: главная («Маркетинг простыми словами») и статья («Вам может быть интересно»).
+// На десктопе — сетка, на мобильном — лента, которая листается пальцем и уходит за правый край экрана
+.blog-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  @include media("lg") {
+    display: flex;
+    // лента от края до края экрана: отрицательные поля съедают отступы контейнера
+    margin: 0 (-$container-padding);
+    padding: 0 $container-padding;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: $container-padding;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include media("xs") {
+    margin: 0 -10px;
+    padding: 0 10px;
+    scroll-padding-left: 10px;
+  }
+
+  &__item {
+    @include media("lg") {
+      flex: 0 0 310px;
+      max-width: 85%;
+      scroll-snap-align: start;
+    }
+  }
+}

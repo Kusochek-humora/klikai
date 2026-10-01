@@ -1,9 +1,49 @@
 <header class="header">
-  <div class="header__container container">
-    <a href="#main" class="header__logo">Logo</a>
+  <div class="container header__inner">
+    <a class="header__logo" href="./" aria-label="Кликай — на главную">
+      <icon name="logo"></icon>
+    </a>
 
-    <include src="src/components/lang-switcher/lang-switcher.html"></include>
-    <!-- иконка из src/assets/icons/<name>.svg -->
-    <icon name="burger-menu" class="header__icon"></icon>
+    <!-- на мобильных — полноэкранное меню -->
+    <div class="header__menu" id="header-menu">
+      <nav class="header__nav" aria-label="Основное меню">
+        <ul class="header__list">
+          <li><a class="header__link" href="./" data-pages="index">Главная</a></li>
+          <li><a class="header__link" href="about.html" data-pages="about">О компании</a></li>
+          <li><a class="header__link" href="services.html" data-pages="services service">Услуги</a></li>
+          <li><a class="header__link" href="cases.html" data-pages="cases case">Кейсы</a></li>
+          <li><a class="header__link" href="blog.html" data-pages="blog article">Блог</a></li>
+          <li><a class="header__link" href="contacts.html" data-pages="contacts">Контакты</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__menu-contacts">
+        <a class="header__btn" href="https://www.instagram.com/klikai.agency/" target="_blank" rel="noopener" aria-label="Instagram">
+          <icon name="inst-header"></icon>
+        </a>
+        <a class="header__btn" href="https://wa.me/77003036090" target="_blank" rel="noopener" aria-label="WhatsApp">
+          <icon name="wpp-header"></icon>
+        </a>
+        <a class="header__btn header__btn--phone" href="tel:+77003036090">+7 700 303 60 90</a>
+      </div>
+    </div>
+
+    <div class="header__actions">
+      <a class="header__btn header__btn--desktop header__btn--youtube" href="https://www.youtube.com/@Vinogradovpodcast" target="_blank" rel="noopener" aria-label="YouTube">
+        <icon name="youtube-header"></icon>
+      </a>
+      <a class="header__btn header__btn--social" href="https://www.instagram.com/klikai.agency/" target="_blank" rel="noopener" aria-label="Instagram">
+        <icon name="inst-header"></icon>
+      </a>
+      <a class="header__btn header__btn--social" href="https://wa.me/77003036090" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <icon name="wpp-header"></icon>
+      </a>
+      <a class="header__btn header__btn--phone header__btn--desktop" href="tel:+77003036090">+7 700 303 60 90</a>
+
+      <button class="header__btn header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="header-menu">
+        <icon name="burger-menu" class="header__burger-open"></icon>
+        <icon name="close" class="header__burger-close"></icon>
+      </button>
+    </div>
   </div>
 </header>

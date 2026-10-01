@@ -1,0 +1,85 @@
+@use "@/styles/abstracts" as *;
+
+// «Предназначение»: цитата в четырёх уголках-скобках, справа внизу — 3D-курсор.
+// Размеры сняты со скриншотов макета (Figma была недоступна) — сверить с макетом
+$corner: 30px; // длина линии уголка
+$line: 2px; // толщина
+
+.purpose {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__title {
+    margin-bottom: 30px;
+
+    @include media("md") {
+      margin-bottom: 20px;
+    }
+  }
+
+  // уголки нарисованы фоном: по две линии (горизонтальная и вертикальная) в каждом углу
+  &__box {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 36px 80px;
+    background:
+      linear-gradient($orange-bright, $orange-bright) left top / $corner $line,
+      linear-gradient($orange-bright, $orange-bright) left top / $line $corner,
+      linear-gradient($orange-bright, $orange-bright) right top / $corner $line,
+      linear-gradient($orange-bright, $orange-bright) right top / $line $corner,
+      linear-gradient($orange-bright, $orange-bright) left bottom / $corner $line,
+      linear-gradient($orange-bright, $orange-bright) left bottom / $line $corner,
+      linear-gradient($orange-bright, $orange-bright) right bottom / $corner $line,
+      linear-gradient($orange-bright, $orange-bright) right bottom / $line $corner;
+    background-repeat: no-repeat;
+
+    @include media("md") {
+      max-width: 310px;
+      padding: 24px 20px;
+    }
+  }
+
+  &__text {
+    position: relative;
+    z-index: 2; // поверх курсора
+    max-width: 620px; // в макете текст стоит в три строки
+    margin: 0 auto;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    color: $dark-soft;
+
+    @include media("md") {
+      font-size: 14px;
+    }
+  }
+
+  &__accent {
+    color: $orange-bright;
+  }
+
+  // курсор перекрывает правый нижний уголок
+  &__cursor {
+    position: absolute;
+    right: -150px;
+    bottom: -70px;
+    width: 182px;
+    height: auto;
+    @include decor;
+
+    @include media("xl") {
+      right: -40px;
+    }
+
+    @include media("md") {
+      right: -40px;
+      bottom: -50px;
+      width: 94px;
+    }
+  }
+}

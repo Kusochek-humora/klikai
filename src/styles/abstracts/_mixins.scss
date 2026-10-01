@@ -36,6 +36,55 @@
   transition: 0.3s all;
 }
 
+// Градиентный текст: @include text-gradient;  или  @include text-gradient($gradient-dark);
+@mixin text-gradient($gradient: $gradient-orange) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// Декоративная картинка поверх вёрстки (курсор, звезда): не выделяется, не перетаскивается,
+// не перехватывает клики. Тексту рядом нужен position: relative и z-index: 2, чтобы быть выше неё
+@mixin decor {
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+// Стрелка в кнопке: линия с наконечником на пустом <span>. Цвет — от текста кнопки.
+// Чтобы стрелка вытягивалась при наведении, родителю достаточно поменять ей width
+@mixin arrow($width: 22px) {
+  position: relative;
+  flex-shrink: 0;
+  width: $width;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.3s;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 7px;
+    height: 7px;
+    border-top: 1px solid currentColor;
+    border-right: 1px solid currentColor;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+// Градиентная обводка со скруглением (border-image скругления не умеет).
+// $bg — фон самого блока: цвет или градиент
+@mixin border-gradient($gradient: $gradient-orange, $bg: $white, $width: 1px) {
+  border: $width solid transparent;
+  background:
+    linear-gradient($bg, $bg) padding-box,
+    $gradient border-box;
+}
+
 // hover только на устройствах с мышью (на тач-экранах не "залипает") + фокус с клавиатуры
 @mixin hover {
   @media (hover: hover) {

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Статья — Кликай</title>
+    <meta name="description" content="" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+    <include src="src/sections/header/header.html"></include>
+
+    <main id="main" tabindex="-1">
+      <nav class="breadcrumbs container" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="./">Главная</a></li>
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="blog.html">Блог</a></li>
+          <li class="breadcrumbs__item" aria-current="page">Бренд - это не логотип, с чего начинается стратегия</li>
+        </ol>
+      </nav>
+
+      <article class="article container">
+        <h1 class="article__title">Бренд - это не логотип, с чего начинается стратегия</h1>
+
+        <img class="article__img" src="/src/assets/img/blog/brand-strategy-wide.webp" alt="" width="860" height="340" />
+
+        <div class="article__content">
+          <p>
+            Многие предприниматели думают, что бренд начинается с красивого логотипа и фирменных цветов. На самом
+            деле, это всего лишь оболочка. Логотип — важный элемент, но он не делает компанию брендом. Бренд — это
+            восприятие в голове клиента. Это ассоциации, эмоции и обещание, которое бизнес даёт и выполняет.
+          </p>
+
+          <h2>Ошибка большинства бизнесов</h2>
+          <p>Заказывают дизайн «чтобы было красиво», но не задаются вопросом:</p>
+          <ul>
+            <li>Кто наш клиент?</li>
+            <li>Какую проблему мы решаем?</li>
+            <li>Почему выбирают нас, а не конкурентов?</li>
+          </ul>
+          <p>Без ответов на эти вопросы даже самый дорогой логотип превращается в пустую картинку.</p>
+
+          <h2>С чего на самом деле начинается бренд-стратегия?</h2>
+          <ol>
+            <li>
+              Исследование рынка и аудитории<br />
+              Понять, кто ваши целевые аудитории, какие у них боли, привычки и желания.
+            </li>
+            <li>
+              Формулировка позиционирования<br />
+              Зачем вы на рынке, чем отличаетесь от конкурентов, какое место хотите занять в голове клиента.
+            </li>
+            <li>
+              Миссия и ценности<br />
+              Что движет компанией, какие принципы лежат в основе решений и коммуникаций.
+            </li>
+            <li>
+              Tone of Voice<br />
+              Как звучит ваш бренд: официально, дружелюбно, дерзко или экспертно.
+            </li>
+            <li>
+              Визуальная айдентика<br />
+              И вот только после этого — логотип, фирменные цвета, шрифты и дизайн. Визуал становится отражением
+              стратегии, а не её заменой.
+            </li>
+          </ol>
+
+          <h2>Почему это важно?</h2>
+          <p>
+            Потому что клиенты покупают не логотип, а смысл, эмоцию и опыт. Они выбирают бренд, с которым хотят себя
+            ассоциировать.
+          </p>
+        </div>
+
+        <time class="article__date" datetime="2025-03-02">02/03/2025</time>
+      </article>
+
+      <section class="related container" aria-labelledby="related-title">
+        <h2 class="related__title" id="related-title">Вам может быть интересно</h2>
+
+        <include src="src/sections/blog-row/blog-row.html"></include>
+      </section>
+    </main>
+
+    <include src="src/sections/footer/footer.html"></include>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/pages/article/article.js"></script>
+  </body>
+</html>

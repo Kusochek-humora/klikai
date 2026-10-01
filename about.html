@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>О компании — Кликай</title>
+    <meta name="description" content="" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+
+    <include src="src/sections/header/header.html"></include>
+
+    <main id="main" tabindex="-1">
+      <nav class="breadcrumbs container" aria-label="Хлебные крошки">
+        <ol class="breadcrumbs__list">
+          <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="./">Главная</a></li>
+          <li class="breadcrumbs__item" aria-current="page">О компании</li>
+        </ol>
+      </nav>
+
+      <section class="page-hero page-hero--about container">
+        <div class="page-hero__media">
+          <img class="page-hero__img" src="/src/assets/img/about/team.webp" alt="Команда агентства Кликай" width="630" height="489" />
+        </div>
+
+        <div class="page-hero__content">
+          <h1 class="page-hero__title">Кликай</h1>
+          <p class="page-hero__text">
+            - это маркетинговое агентство полного цикла, которое помогает бизнесу расти через смысл, честную
+            стратегию и сильный визуал.
+          </p>
+          <div class="page-hero__actions">
+            <a class="btn" href="#feedback">Связаться с нами</a>
+            <a class="btn btn--gray" href="services.html">Перейти к услугам</a>
+          </div>
+        </div>
+      </section>
+
+      <dl class="counters container">
+        <div class="counters__item">
+          <dt class="counters__label">лет в маркетинге</dt>
+          <dd class="counters__value">9+</dd>
+        </div>
+        <div class="counters__item">
+          <dt class="counters__label">проектов в разных нишах</dt>
+          <dd class="counters__value">80+</dd>
+        </div>
+        <div class="counters__item">
+          <dt class="counters__label">лет в бизнесе</dt>
+          <dd class="counters__value">5+</dd>
+        </div>
+      </dl>
+
+      <include src="src/sections/purpose/purpose.html"></include>
+
+      <include src="src/sections/pains/pains.html"></include>
+
+      <include src="src/sections/team/team.html"></include>
+
+      <include src="src/sections/steps/steps.html"></include>
+
+      <include src="src/sections/partners/partners.html"></include>
+
+      <include src="src/sections/feedback/feedback.html"></include>
+    </main>
+
+    <include src="src/sections/footer/footer.html"></include>
+
+    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/pages/about/about.js"></script>
+  </body>
+</html>

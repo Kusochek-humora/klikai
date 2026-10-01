@@ -1,0 +1,91 @@
+@use "@/styles/abstracts" as *;
+
+// Размеры сняты со скриншотов макета (Figma была недоступна) — сверить с макетом
+.contacts {
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+  padding-bottom: 80px;
+
+  @include media("md") {
+    padding-top: 20px;
+    padding-bottom: 60px;
+  }
+
+  // пять колонок в ряд; на мобильном адрес на всю ширину, остальное — в две колонки
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px 30px;
+    margin: 40px 0 0;
+
+    @include media("md") {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      order: 2; // в мобильном макете карта стоит над контактами
+      margin-top: 20px;
+    }
+  }
+
+  &__item--wide {
+    @include media("md") {
+      grid-column: 1 / -1;
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: $gray-text;
+  }
+
+  &__value {
+    margin: 12px 0 0;
+    font-size: 16px;
+    line-height: 1.2;
+    overflow-wrap: anywhere;
+
+    a {
+      color: inherit;
+      transition: color 0.3s;
+
+      @include hover {
+        color: $orange;
+      }
+    }
+
+    @include media("md") {
+      font-size: 14px;
+    }
+  }
+
+  &__map {
+    overflow: hidden;
+    min-height: 460px;
+    margin-top: 40px;
+    border-radius: 30px;
+    background-color: #eee;
+
+    // виджет 2ГИС вставляет iframe фиксированного размера — растягиваем его на всю ширину блока
+    iframe {
+      display: block;
+      width: 100% !important;
+      border: 0 !important;
+    }
+
+    // мобильный макет: карта 350×330
+    @include media("md") {
+      order: 1;
+      min-height: 330px;
+      margin-top: 20px;
+      border-radius: 20px;
+
+      iframe {
+        height: 330px !important;
+      }
+    }
+  }
+}

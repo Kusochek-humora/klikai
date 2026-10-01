@@ -1,0 +1,33 @@
+@use "@/styles/abstracts" as *;
+
+.blog {
+  padding-top: 24px;
+  padding-bottom: 80px;
+
+  @include media("md") {
+    padding-top: 20px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  // макет: 4 в ряд на десктопе, 1 на мобильном; 3 и 2 — промежуточные, для планшетов
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+
+    @include media("lg") {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @include media("md") {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media("sm") {
+      grid-template-columns: 1fr;
+    }
+  }
+}

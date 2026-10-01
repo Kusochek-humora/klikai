@@ -5,23 +5,36 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
+  min-height: 100dvh; // на мобильных без учёта адресной строки
   text-rendering: optimizeSpeed;
   font-family: $font-main;
+  font-weight: 500;
+  letter-spacing: -0.011em; // в макете -1.1% у всех текстовых стилей
   color: $black;
   background-color: $white;
+}
+
+// main забирает всё свободное место — футер прижат к низу на коротких страницах
+main {
+  flex: 1 0 auto;
+  overflow-x: clip; // декор, выходящий за край экрана (курсоры, звёзды), не даёт горизонтальной прокрутки
+}
+
+// атрибут hidden должен прятать элемент, даже если у его класса задан свой display (например, .btn)
+[hidden] {
+  display: none !important;
 }
 
 .container {
   width: 100%;
   max-width: $container-width + $container-padding * 2;
   margin: 0 auto;
-  padding: 0 $container-padding;
+  padding: 0 $container-padding; // в мобильном макете поля те же 20px
 
-  @include media("lg") {
-    padding: 0 15px;
-  }
-  @include media("sm") {
+  @include media("xs") {
     padding: 0 10px;
   }
 }
@@ -38,7 +51,7 @@ body {
   left: 12px;
   padding: 12px 20px;
   border-radius: 10px;
-  background-color: $primary;
+  background-color: $orange;
   color: $white;
   transform: translateY(-200%);
   transition: transform 0.2s ease;

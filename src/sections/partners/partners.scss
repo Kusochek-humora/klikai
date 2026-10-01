@@ -1,0 +1,77 @@
+@use "@/styles/abstracts" as *;
+
+// «Нам доверяют лидеры рынка»: логотипы едут медленной бесконечной строкой
+.partners {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__marquee {
+    overflow: hidden;
+    margin-top: 50px;
+
+    @include media("md") {
+      margin-top: 30px;
+    }
+  }
+
+  // лента из двух одинаковых половин сдвигается ровно на одну половину и начинается заново — стыка не видно
+  &__track {
+    display: flex;
+    width: max-content;
+    animation: partners-scroll 60s linear infinite;
+
+    @include hover {
+      animation-play-state: paused;
+    }
+  }
+
+  &__half,
+  &__list {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  &__list {
+    gap: 50px;
+    padding-right: 50px;
+
+    @include media("md") {
+      gap: 20px;
+      padding-right: 20px;
+    }
+  }
+
+  &__logo {
+    width: auto;
+    height: 120px;
+
+    @include media("md") {
+      height: 80px;
+    }
+  }
+
+  // если в системе отключена анимация — строка стоит на месте и листается пальцем
+  @media (prefers-reduced-motion: reduce) {
+    &__marquee {
+      overflow-x: auto;
+    }
+
+    &__track {
+      animation: none;
+    }
+
+    &__half[aria-hidden="true"] {
+      display: none;
+    }
+  }
+}
+
+@keyframes partners-scroll {
+  to {
+    transform: translateX(-50%);
+  }
+}

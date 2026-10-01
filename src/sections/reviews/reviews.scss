@@ -1,0 +1,81 @@
+@use "@/styles/abstracts" as *;
+
+// «Истории успешного сотрудничества»: лента отзывов на всю ширину экрана
+.reviews {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__title {
+    max-width: 771px;
+    margin: 0 auto 32px;
+    @include text-gradient;
+
+    @include media("md") {
+      margin-bottom: 20px;
+    }
+  }
+
+  // лента идёт от края до края экрана, но первая и последняя карточки останавливаются
+  // на линии контейнера: поля слайдера равны полям страницы
+  &__slider {
+    padding: 0 max(#{$container-padding}, (100% - #{$container-width}) / 2);
+
+    @include media("xs") {
+      padding: 0 10px;
+    }
+  }
+
+  &__slide {
+    width: 305px;
+    height: auto;
+
+    @include media("md") {
+      width: 250px;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    height: 100%;
+    min-height: 291px;
+    margin: 0;
+    padding: 20px;
+    border: 1px solid $gray-border;
+    border-radius: 30px;
+    background-color: $white;
+    color: $dark;
+  }
+
+  &__text {
+    margin: 0;
+    font-family: $font-accent;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.2;
+    color: rgba($dark, 0.7);
+
+    // в мобильном макете текст отзыва набран Raleway Medium
+    @include media("md") {
+      font-family: $font-main;
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  &__author {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.2;
+
+    @include media("md") {
+      font-size: 14px;
+    }
+  }
+}

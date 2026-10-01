@@ -3,20 +3,59 @@ $breakpoints: (
   "xl": 1280px,
   "lg": 1024px,
   "md": 768px,
-  "sm": 576px
+  "sm": 576px,
+  "xs": 360px
 );
 
 // colors
 $white: #fff;
 $black: #000;
-$primary: #03467c;
-$primary-hover: #02345c;
+// $primary: #03467c;
+// $primary-hover: #02345c;
+$orange: #f24822; // заголовки секций, обводки
+$orange-dark: #bd2915; // нижний цвет фирменного градиента
+$orange-bright: #fe470a; // звёзды, линии-уголки в «Предназначении»
+
+$dark: #191919; // тёмный текст (заголовки карточек блога и т.п.)
+$dark-text: #222; // текст в полях формы
+$dark-soft: #2b2a29; // текст цитаты в «Предназначении»
+$graphite: #262626; // тёмная кнопка «Обсудить проект»
+$ink: #090909; // самый тёмный фон (hero, подвал)
+
+$gray: #9a9a9a;
+$gray-border: #989898; // обводки, серая кнопка
+$gray-btn: #838383; // кнопка «Узнать подробнее»
+$gray-text: #7b7b7b; // подписи в контактах
+$border-light: rgba(#000, 0.1); // обводка полей формы
+
+// gradients (все вертикальные, сверху вниз, если не указано иное)
+// фирменный: кнопки, градиентный текст, обводки карточек. 161% — градиент обрывается раньше, чем дойдёт до тёмного
+$gradient-orange: linear-gradient(180deg, $orange 0%, $orange-dark 161%);
+$gradient-orange-card: linear-gradient(135deg, $orange 0%, #f15922 100%); // оранжевая карточка с иконкой-звездой
+$gradient-dark: linear-gradient(180deg, $ink 0%, $graphite 100%); // hero главной, подвал
+$gradient-dark-form: linear-gradient(180deg, $ink 0%, #3f3f3f 100%); // форма, квиз
+$gradient-dark-section: linear-gradient(180deg, #222 0%, #181818 100%); // «Почему выбирают»
+$gradient-dark-card: linear-gradient(180deg, $dark-soft 0%, $dark 100%);
+$gradient-star: linear-gradient(180deg, $white -37%, $dark 96%); // большая звезда на тёмном фоне
+$gradient-gray-hover: linear-gradient(180deg, $gray-border -8%, #323232 158%); // серая кнопка при наведении
+$gradient-white-fade: linear-gradient(180deg, $white 0%, rgba($white, 0) 100%); // обводки карточек на тёмном
 
 // fonts
-$font-main: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+$font-fallback:
+  system-ui,
+  -apple-system,
+  "Segoe UI",
+  Roboto,
+  Arial,
+  sans-serif;
+$font-main: "Raleway", $font-fallback; // основной текст
+$font-heading: "Unbounded", $font-fallback; // заголовки
+$font-accent: "Inter", $font-fallback;
 
 // layout
 $container-width: 1280px;
 $container-padding: 20px;
 
 $transition: 0.3s all;
+
+$bg-btn-primary: $gradient-orange;

@@ -1,0 +1,62 @@
+@use "@/styles/abstracts" as *;
+@use "@/components/info-card/info-card";
+
+// «Мы знаем, с чего вы устали — и что с этим делать»: три карточки в ряд,
+// до 1024px — лента, которая листается пальцем и уходит за правый край экрана
+.pains {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__title {
+    margin-bottom: 40px;
+
+    @include media("md") {
+      margin-bottom: 20px;
+    }
+
+    // в мобильном макете заголовок переносится сам
+    br {
+      @include media("md") {
+        display: none;
+      }
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @include media("lg") {
+      display: flex;
+      // лента от края до края экрана: отрицательные поля съедают отступы контейнера
+      margin: 0 (-$container-padding);
+      padding: 0 $container-padding;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding-left: $container-padding;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    @include media("xs") {
+      margin: 0 -10px;
+      padding: 0 10px;
+      scroll-padding-left: 10px;
+    }
+  }
+
+  &__item {
+    @include media("lg") {
+      flex: 0 0 320px;
+      max-width: 85%;
+      scroll-snap-align: start;
+    }
+  }
+}

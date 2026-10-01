@@ -1,0 +1,182 @@
+<section class="quiz container" aria-labelledby="quiz-title">
+  <div class="quiz__box">
+    <div class="quiz__progress" aria-hidden="true">
+      <span class="is-active"></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <h2 class="quiz__title" id="quiz-title">Подберите идеальный маркетинг под свой бюджет за 2 минуты</h2>
+
+    <!-- data-feedback-form: проверка полей и отправка — общие с формой «Расскажите о вашем проекте» (feedback.js) -->
+    <form class="quiz__form" data-feedback-form novalidate>
+        <fieldset class="quiz__step">
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 1 из 6</span>Какой у вас бизнес?</legend>
+          <div class="quiz__options">
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Магазин / e-commerce" checked />
+              <span>Магазин / e-commerce</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Ресторан / кафе" />
+              <span>Ресторан / кафе</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Услуги (салоны, сервисы, медицина и т.д.)" />
+              <span>Услуги (салоны, сервисы, медицина и т.д.)</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Образование / экспертные услуги" />
+              <span>Образование / экспертные услуги</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Производство / строительство" />
+              <span>Производство / строительство</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="business" value="Другое" />
+              <span>Другое</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- TODO: вопрос 2 в макете не виден: заменить текст вопроса и варианты на настоящие -->
+        <fieldset class="quiz__step" hidden>
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 2 из 6</span>Какая у вас главная цель?</legend>
+          <div class="quiz__options">
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="goal" value="Больше заявок и продаж" checked />
+              <span>Больше заявок и продаж</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="goal" value="Узнаваемость бренда" />
+              <span>Узнаваемость бренда</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="goal" value="Запуск нового продукта" />
+              <span>Запуск нового продукта</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="goal" value="Навести порядок в маркетинге" />
+              <span>Навести порядок в маркетинге</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="goal" value="Другое" />
+              <span>Другое</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz__step" hidden>
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 3 из 6</span>Какие каналы продвижения уже используете?</legend>
+          <div class="quiz__options">
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="channels" value="Instagram / TikTok" checked />
+              <span>Instagram / TikTok</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="channels" value="Таргетированная реклама" />
+              <span>Таргетированная реклама</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="channels" value="Контекстная реклама (Google / Яндекс)" />
+              <span>Контекстная реклама (Google / Яндекс)</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="channels" value="Рекомендации и сарафанное радио" />
+              <span>Рекомендации и сарафанное радио</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="channels" value="Ничего не используем — начинаем с нуля" />
+              <span>Ничего не используем — начинаем с нуля</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz__step" hidden>
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 4 из 6</span>Когда планируете старт?</legend>
+          <div class="quiz__options">
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="start" value="Уже сейчас" checked />
+              <span>Уже сейчас</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="start" value="В течение месяца" />
+              <span>В течение месяца</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="start" value="Через 2–3 месяца" />
+              <span>Через 2–3 месяца</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="start" value="Пока присматриваюсь, хочу получить консультацию" />
+              <span>Пока присматриваюсь, хочу получить консультацию</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="start" value="Запланирую позже, но хочу узнать условия" />
+              <span>Запланирую позже, но хочу узнать условия</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz__step" hidden>
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 5 из 6</span>В каком формате хотите сотрудничать?</legend>
+          <div class="quiz__options">
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="format" value="SMM + таргет" checked />
+              <span>SMM + таргет</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="format" value="Расширенный SMM + Таргет" />
+              <span>Расширенный SMM + Таргет</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="format" value="Маркетинг под ключ" />
+              <span>Маркетинг под ключ</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="format" value="Маркетинг + Отдел продаж" />
+              <span>Маркетинг + Отдел продаж</span>
+            </label>
+            <label class="quiz__option">
+              <input class="quiz__radio" type="radio" name="format" value="Пока не определился" />
+              <span>Пока не определился</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <fieldset class="quiz__step quiz__step--contacts" hidden>
+          <legend class="quiz__question"><span class="quiz__count">Вопрос 6 из 6</span>Оставьте свои контакты, и мы вышлем расчёт:</legend>
+
+          <div class="quiz__fields">
+            <div class="feedback__field">
+              <label class="visually-hidden" for="quiz-name">ФИО</label>
+              <input class="feedback__input" id="quiz-name" type="text" name="name" placeholder="ФИО" autocomplete="name" required />
+              <p class="feedback__error" id="quiz-name-error" hidden></p>
+            </div>
+            <div class="feedback__field">
+              <label class="visually-hidden" for="quiz-phone">Телефон</label>
+              <input class="feedback__input" id="quiz-phone" type="tel" name="phone" placeholder="Телефон" autocomplete="tel" inputmode="tel" required />
+              <p class="feedback__error" id="quiz-phone-error" hidden></p>
+            </div>
+            <div class="feedback__field">
+              <label class="visually-hidden" for="quiz-comment">Комментарий (необязательно)</label>
+              <input class="feedback__input" id="quiz-comment" type="text" name="comment" placeholder="Комментарий (необязательно)" maxlength="500" />
+              <p class="feedback__error" id="quiz-comment-error" hidden></p>
+            </div>
+
+            <p class="feedback__policy">
+              Нажимая на кнопку, вы соглашаетесь с условиями
+              <a class="feedback__policy-link" href="#">Политики конфиденциальности</a>
+            </p>
+
+            <button class="btn quiz__submit" type="submit">Отправить заявку</button>
+            <p class="feedback__success" role="status" hidden>Спасибо! Заявка отправлена, мы свяжемся с вами.</p>
+          </div>
+        </fieldset>
+
+      <div class="quiz__nav">
+        <button class="quiz__back" type="button" hidden>Назад</button>
+        <button class="btn quiz__next" type="button">Следующий вопрос <span class="btn__arrow"></span></button>
+      </div>
+    </form>
+  </div>
+</section>

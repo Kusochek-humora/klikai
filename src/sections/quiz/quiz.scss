@@ -1,0 +1,230 @@
+@use "@/styles/abstracts" as *;
+
+// Квиз «Подберите идеальный маркетинг»: 6 шагов, на последнем — контакты.
+// Размеры сняты со скриншотов макета (Figma была недоступна) — сверить с макетом
+.quiz {
+  margin-top: 80px;
+
+  @include media("md") {
+    margin-top: 60px;
+  }
+
+  &__box {
+    position: relative;
+    overflow: hidden;
+    max-width: 1064px;
+    margin: 0 auto;
+    padding: 30px 40px 40px;
+    border-radius: 40px;
+    background: $gradient-dark-form;
+    color: $white;
+
+    @include media("md") {
+      padding: 20px 20px 30px;
+      border-radius: 30px;
+    }
+
+    // на последнем шаге справа появляется большая звезда
+    &::after {
+      content: "";
+      position: absolute;
+      top: 58%;
+      right: -60px;
+      width: 440px;
+      height: 440px;
+      background: url("@/assets/img/decor/star.svg") center / contain no-repeat;
+      opacity: 0;
+      transform: translateY(-50%);
+      transition: opacity 0.3s;
+      pointer-events: none;
+
+      @include media("lg") {
+        display: none;
+      }
+    }
+
+    &.is-last::after {
+      opacity: 1;
+    }
+  }
+
+  // весь контент — поверх звезды
+  &__progress,
+  &__title {
+    position: relative;
+    z-index: 1;
+  }
+
+  // шесть чёрточек: пройденные и текущий шаг — белые
+  &__progress {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 24px;
+
+    span {
+      width: 50px;
+      height: 3px;
+      border-radius: 3px;
+      background-color: rgba($white, 0.3);
+      transition: background-color 0.3s;
+
+      &.is-active {
+        background-color: $white;
+      }
+
+      @include media("md") {
+        flex: 1;
+        width: auto;
+      }
+    }
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: fluid(16px, 20px);
+    line-height: 1.2;
+  }
+
+  &__form {
+    position: relative;
+    z-index: 1;
+    margin-top: 30px;
+  }
+
+  &__step {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  &__question {
+    padding: 0;
+    font-family: $font-heading;
+    font-weight: 700;
+    font-size: fluid(20px, 24px);
+    line-height: 1.2;
+  }
+
+  &__count {
+    display: block;
+    margin-bottom: 6px;
+    font-family: $font-main;
+    font-weight: 500;
+    font-size: 12px;
+  }
+
+  &__options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-top: 24px;
+
+    @include media("md") {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+  }
+
+  // вариант ответа: белая «таблетка» с кружком, выбранный кружок — оранжевый
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 46px;
+    padding: 8px 20px;
+    border-radius: 100px;
+    background-color: $white;
+    font-size: 14px;
+    line-height: 1.2;
+    color: $dark-text;
+    cursor: pointer;
+    transition: box-shadow 0.3s;
+
+    &:has(:focus-visible) {
+      box-shadow: 0 0 0 2px $orange;
+    }
+  }
+
+  &__radio {
+    flex-shrink: 0;
+    width: 12px;
+    height: 12px;
+    margin: 0;
+    border-radius: 50%;
+    background-color: $gray;
+    appearance: none;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+
+    &:checked {
+      background-color: $orange;
+    }
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 480px;
+    margin-top: 24px;
+
+    .feedback__input {
+      height: 50px;
+    }
+  }
+
+  &__submit {
+    align-self: flex-start;
+    min-width: 260px;
+    border: 0;
+    cursor: pointer;
+
+    @include media("md") {
+      align-self: stretch;
+      min-width: 0;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    margin-top: 30px;
+
+    @include media("md") {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    // на последнем шаге вместо «Следующий вопрос» — кнопка отправки внутри шага
+    .is-last & {
+      justify-content: flex-start;
+      margin-top: 16px;
+    }
+  }
+
+  &__next {
+    min-width: 260px;
+    border: 0;
+    cursor: pointer;
+
+    @include media("md") {
+      min-width: 0;
+    }
+  }
+
+  &__back {
+    font-size: 14px;
+    color: rgba($white, 0.7);
+    transition: color 0.3s;
+
+    @include hover {
+      color: $white;
+    }
+  }
+}

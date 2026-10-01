@@ -1,0 +1,49 @@
+@use "@/styles/abstracts" as *;
+
+// Разметка — прямо в странице (у каждой свои пункты):
+// <nav class="breadcrumbs container" aria-label="Хлебные крошки">
+//   <ol class="breadcrumbs__list">
+//     <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="./">Главная</a></li>
+//     <li class="breadcrumbs__item" aria-current="page">О компании</li>
+//   </ol>
+// </nav>
+.breadcrumbs {
+  font-size: 14px;
+  line-height: 1.2;
+  color: rgba($dark, 0.6);
+
+  @include media("md") {
+    font-size: 12px;
+  }
+
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    & + &::before {
+      content: "/";
+      margin: 0 0.3em;
+    }
+
+    // последний пункт (название статьи, кейса) обрезается многоточием, если не влезает
+    &:last-child {
+      flex-shrink: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  &__link {
+    color: inherit;
+    transition: color 0.3s;
+
+    @include hover {
+      color: $dark;
+    }
+  }
+}
