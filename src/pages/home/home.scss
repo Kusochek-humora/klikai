@@ -1,4 +1,12 @@
 @use "@/styles/abstracts" as *;
+// стили секций страницы подключаются здесь, а не из js: тогда у страницы один свой css-файл
+@use "@/sections/hero/hero";
+@use "@/sections/purpose/purpose";
+@use "@/sections/pains/pains";
+@use "@/sections/why/why";
+@use "@/sections/services-list/services-list";
+@use "@/sections/partners/partners";
+@use "@/sections/blog-row/blog-row";
 
 // На главной блок «Почему выбирают» в макете ниже: 692px вместо 957, карточки 222px вместо 333,
 // описание набрано Raleway. Значения — координаты из макета главной.

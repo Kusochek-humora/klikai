@@ -1,4 +1,6 @@
 @use "@/styles/abstracts" as *;
+// стили секций страницы подключаются здесь, а не из js: тогда у страницы один свой css-файл
+@use "@/components/case-card/case-card";
 
 .cases {
   padding-top: 24px;

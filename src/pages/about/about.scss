@@ -1,0 +1,8 @@
+@use "@/styles/abstracts" as *;
+// стили секций страницы подключаются здесь, а не из js: тогда у страницы один свой css-файл
+@use "@/sections/page-hero/page-hero";
+@use "@/sections/purpose/purpose";
+@use "@/sections/pains/pains";
+@use "@/sections/team/team";
+@use "@/sections/steps/steps";
+@use "@/sections/partners/partners";
