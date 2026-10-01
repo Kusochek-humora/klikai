@@ -1,0 +1,16 @@
+@use "@/styles/abstracts" as *;
+
+.header {
+  padding: 16px 0;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__logo {
+    margin-right: auto;
+    font-weight: 700;
+  }
+}

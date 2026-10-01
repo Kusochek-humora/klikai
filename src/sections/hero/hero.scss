@@ -1,0 +1,11 @@
+@use "@/styles/abstracts" as *;
+
+.hero {
+  padding: 60px 0;
+
+  &__title {
+    margin-bottom: 16px;
+    font-size: fluid(32px, 60px); // 60 от 768 и шире → 32 на 375
+    color: $primary;
+  }
+}
