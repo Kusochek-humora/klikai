@@ -16,9 +16,9 @@ export default defineConfig({
   // относительные пути в сборке: работает из любой папки (GitHub Pages, любой хостинг)
   base: './',
   build: {
-    // для GitHub Pages «main + /docs» раскомментировать:
-    // outDir: 'docs',
-    // emptyOutDir: true,
+    // сборка лежит в репозитории: GitHub Pages публикует папку docs из ветки main (npm run deploy)
+    outDir: 'docs',
+    emptyOutDir: true,
     rolldownOptions: {
       input: pages,
     },

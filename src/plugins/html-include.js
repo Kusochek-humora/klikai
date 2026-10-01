@@ -74,6 +74,15 @@ function blockRenderUntilStyled(html) {
   return html.replace(MODULE_SCRIPT_RE, '').replace('</head>', `${blocking}  </head>`);
 }
 
+// Только для сборки. Браузер сразу после загрузки страницы в фоне готовит все остальные страницы сайта,
+// на которые с неё есть ссылки, — переход по клику открывается мгновенно.
+// Сайт маленький (9 лёгких страниц), поэтому грузим всё; для большого сайта вернуть "eagerness": "moderate"
+// (подготовка только при наведении на ссылку). Работает в Chrome и Edge; остальные браузеры блок игнорируют
+const SPECULATION_RULES = `    <script type="speculationrules">
+      { "prerender": [{ "where": { "href_matches": "/*" }, "eagerness": "immediate" }] }
+    </script>
+`;
+
 export default function htmlInclude() {
   let root;
 
@@ -86,7 +95,7 @@ export default function htmlInclude() {
       order: 'pre',
       handler: (html, ctx) => {
         const out = renderIcons(render(html, root), root);
-        return ctx.server ? blockRenderUntilStyled(out) : out;
+        return ctx.server ? blockRenderUntilStyled(out) : out.replace('</head>', `${SPECULATION_RULES}  </head>`);
       },
     },
     configureServer(server) {
