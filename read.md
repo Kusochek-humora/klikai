@@ -1,41 +1,135 @@
-# Vite starter
+# Кликай — вёрстка сайта маркетингового агентства
 
-Стартовая сборка для вёрстки: Vite, чистые HTML / JS, SCSS.
+Статическая многостраничная вёрстка: Vite, чистые HTML / JS, SCSS. Без фреймворков, без CMS.
+Готовые страницы для натяжки лежат в `dist/` после сборки — это обычный HTML, CSS и JS.
 
 ## Запуск
 
 ```
 npm install
-npm run dev      # дев-сервер
+npm run dev      # дев-сервер, страницы по адресам /about.html, /blog.html …
 npm run build    # сборка в dist/
 npm run preview  # посмотреть сборку
 ```
 
-## Что внутри
+Нужен Node.js 20+.
 
-- **Страницы.** `*.html` в корне проекта — сборка подхватывает их сама. Каждая подключает общий `src/main.js`
-  и свой `src/pages/<имя>/<имя>.js` (секции и стили только этой страницы).
-- **Модульность.** Секции — `src/sections/<имя>/` (`.html` + `.js` + `.scss`), мелкие компоненты — `src/components/`.
-  В HTML подключаются тегом `<include src="src/sections/hero/hero.html"></include>` (путь от корня проекта, вложенность поддерживается).
-  Стили секции импортирует её `.js`, сам `.js` — `src/main.js` (если секция на всех страницах) или js страницы.
-- **Иконки.** SVG кладутся в `src/assets/icons/`, вставляются `<icon name="burger-menu" class="..."></icon>` —
-  при сборке превращаются в inline-svg. Одноцветные иконки сохранять с `fill="currentColor"` / `stroke="currentColor"`.
-- **Картинки.** `src/assets/img/`, в HTML — путь от корня: `/src/assets/img/photo.webp`.
-- **SCSS.** В каждом файле: `@use "@/styles/abstracts" as *;`
-  - `@include media("lg") { ... }` — desktop-first, `max-width` (брейкпоинты в `_variables.scss`);
-  - `fluid(32px, 60px)` — плавный размер через `clamp()` между 375 и 768px;
-  - `@include hover { ... }` — hover только для мыши + фокус с клавиатуры;
-  - `@include visually-hidden`.
-- **Reset** поверх `normalize.css`, с нулевой специфичностью у списков (`:where`).
-- **Шрифты.** Миксин `font-face` в `src/styles/base/_fonts.scss`, файлы — в `src/assets/fonts/`.
+## Страницы
 
-## Новая секция
+HTML-файлы лежат в корне проекта, сборка подхватывает их сама (новая страница — новый файл в корне).
 
-1. Создать `src/sections/about/about.html`, `about.js` (`import './about.scss';`), `about.scss`.
-2. В `index.html`: `<include src="src/sections/about/about.html"></include>`.
-3. В `src/main.js`: `import './sections/about/about';` (или `initAbout()`, если есть логика).
+| Файл | Страница | Блоки |
+|---|---|---|
+| `index.html` | Главная | hero, purpose, quiz, pains, why, services-list + promo, results, partners, blog-row, reviews, feedback |
+| `about.html` | О компании | page-hero + счётчики, purpose, pains, team, steps, partners, feedback |
+| `services.html` | Услуги | services-list, promo, feedback |
+| `service.html` | Услуга (SMM + Таргет) | page-hero, «Что вы получаете», «Важность SMM», why, steps, feedback |
+| `cases.html` | Кейсы | сетка case-card |
+| `case.html` | Кейс (2ГИС) | page-hero, телефон + цифры, why, steps, feedback |
+| `blog.html` | Блог | сетка blog-card |
+| `article.html` | Статья | текст статьи, blog-row |
+| `contacts.html` | Контакты | список контактов, карта 2ГИС |
+
+Каждая страница подключает общий `src/main.js` и свой `src/pages/<имя>/<имя>.js`.
+Шапка, подвал, хлебные крошки, кнопки и форма подключены в `main.js` и есть на всех страницах.
+
+## Структура
+
+```
+*.html                 страницы
+src/
+  main.js              общее для всех страниц
+  pages/<имя>/         входной js страницы + стили блоков, которые есть только на ней
+  sections/<имя>/      секции: .html + .scss (+ .js, если есть логика)
+  components/<имя>/    мелкие компоненты: btn, breadcrumbs, blog-card, case-card, service-card, info-card
+  styles/
+    abstracts/         переменные и миксины — подключаются в каждом scss: @use "@/styles/abstracts" as *;
+    base/              шрифты, reset, базовые стили, типографика (.title, .subtitle)
+  assets/
+    fonts/             Raleway, Unbounded, Inter — вариативные woff2, сабсеты latin / cyrillic / cyrillic-ext
+    icons/             svg, вставляются инлайном через <icon>
+    img/               картинки по папкам блоков
+  plugins/html-include.js   сборочный плагин для <include> и <icon>
+```
+
+## Как это устроено
+
+- **Секции** вставляются в страницу тегом `<include src="src/sections/hero/hero.html"></include>` (путь от корня проекта,
+  вложенность поддерживается). Параметров у `<include>` нет: если у блока на разных страницах разный текст,
+  разметка лежит прямо в странице (так сделаны page-hero, хлебные крошки, карточки блога и кейсов).
+- **Иконки**: `<icon name="star" class="..."></icon>` → инлайн-svg из `src/assets/icons/star.svg`.
+  Одноцветные иконки сохранены с `currentColor` и перекрашиваются цветом текста.
+- **Картинки** в HTML — путь от корня: `/src/assets/img/blog/photo.webp`. В сборке пути становятся относительными.
+- **Стили** секции импортирует её `.js` или js страницы. Общий js — только то, что нужно везде.
+- `<include>` и `<icon>` существуют только в исходниках: в `dist/` их нет.
+
+### SCSS
+
+- `@include media("lg") { ... }` — desktop-first, `max-width`. Брейкпоинты: `xl` 1280, `lg` 1024, `md` 768, `sm` 576, `xs` 360.
+- `fluid(24px, 32px)` — плавный размер через `clamp()`; по умолчанию между 375 и 768px, границы можно передать.
+- `@include hover { ... }` — hover только для мыши + фокус с клавиатуры.
+- `@include text-gradient;` — градиентный текст. `@include border-gradient;` — градиентная обводка со скруглением.
+- `@include arrow;` — стрелка в кнопке. `@include decor;` — декоративная картинка (не выделяется, под текстом).
+- Цвета и градиенты — в `_variables.scss`, у каждого в комментарии указано, где он используется в макете.
+
+### Шапка
+
+- `position: fixed`, прозрачная; при скролле получает фон и уменьшается (класс `is-scrolled`).
+- Тёмный вариант (белый логотип и меню, кнопка YouTube) включается на странице: `<body data-header="dark">`. Сейчас — только главная.
+- До 1024px — бургер и полноэкранное меню (класс `is-menu-open`).
+- Текущий пункт меню проставляет `header.js` по имени файла из `data-pages`. **При натяжке `aria-current="page"` должен ставить сервер.**
+
+### Формы
+
+- Форма «Расскажите о вашем проекте» (`sections/feedback`) и квиз на главной (`sections/quiz`) используют одну проверку из `feedback.js`:
+  ФИО — обязательно, от 2 символов; телефон — обязательно, 10–15 цифр; комментарий — необязательно.
+- Имена полей: `name`, `phone`, `comment`; в квизе дополнительно `business`, `goal`, `channels`, `start`, `format`.
+- **Отправки нет**: после успешной проверки форма очищается и показывает сообщение. Место для запроса помечено `TODO` в `feedback.js`.
+- Кнопки «Заполнить бриф», «Обсудить проект», «Заказать услугу» ведут на якорь `#feedback`.
+
+### Слайдеры
+
+- Swiper подключён на главной: отзывы (`reviews.js`) и кейсы с цифрами (`results.js`, слайдер включается только до 1024px).
+- Партнёры — бегущая строка на CSS; ряд статей и карточки «Мы знаем, с чего вы устали» на мобильном — лента на `scroll-snap`.
+
+## Что учесть при натяжке
+
+Блоки, рассчитанные на фиксированное количество элементов:
+
+| Блок | Сколько | Где задано |
+|---|---|---|
+| «Почему выбирают» (десктоп шире 1280px) | 5 карточек | координаты по `:nth-child` в `sections/why/why.scss` |
+| Квиз | 6 шагов | «Вопрос N из 6» и чёрточки прогресса — в `sections/quiz/quiz.html` |
+| Команда | 3 больших + 6 маленьких фото | сетка в `sections/team/team.scss` |
+| «Что вы получаете» | 5 карточек | курсор стоит на месте шестой, `pages/service/service.scss` |
+| Цифры в кейсе (мобильный) | 6 | порядок по `:nth-child` в `pages/case/case.scss` |
+| Партнёры | список выведен 4 раза | `sections/partners/partners.html` |
+
+Остальные списки (блог, кейсы, отзывы, этапы, пакеты услуг) работают с любым количеством.
+
+Ещё:
+
+- Имена css и js в `dist/assets/` — с хешем; постоянные имена настраиваются в `vite.config.js` (`build.rolldownOptions.output`).
+- Текст статьи (`.article__content`) и описание услуги (`.service-about__text`) оформлены обычными тегами — подходят под визуальный редактор.
+  Списки в кейсе (`.case-info__heading`, `.case-info__list`) — через классы.
+- У кнопок `.btn` текст не переносится.
+- Атрибут `hidden` принудительно прячет элемент (правило в `_base.scss`).
+
+## Что не сделано
+
+- отправка заявок из формы и квиза;
+- модальное окно с формой;
+- вопрос 2 в квизе — временный текст (в макете его не было), помечен `TODO` в `quiz.html`;
+- ссылки-заглушки `href="#"`: Telegram и политика конфиденциальности (подвал, формы), «ссылка instagram» в кейсах на главной;
+- пагинация в блоге и кейсах, страницы 404 и политики конфиденциальности;
+- `<meta name="description">` пустой на всех страницах, нет favicon и Open Graph;
+- картинка кейса Fitnation на главной — временная; фото выгружены в 1x.
+
+Часть блоков сверстана по скриншотам, без доступа к Figma: в таких scss-файлах в начале стоит комментарий
+«Размеры сняты со скриншотов макета» — размеры и тексты в них стоит сверить с макетом.
 
 ## Деплой на GitHub Pages
 
-В `vite.config.js` уже стоит `base: './'`. Раскомментировать в `build` строки `outDir: 'docs'` и `emptyOutDir: true`,
-выполнить `npm run build`, закоммитить `docs/` и выбрать в Settings → Pages ветку `main` и папку `/docs`.
+Workflow `.github/workflows/deploy.yml` собирает проект и публикует `dist/` при пуше в `main`.
+В настройках репозитория: Settings → Pages → Source — **GitHub Actions**.
+`base: './'` в `vite.config.js` делает пути относительными, сайт работает из любой папки.

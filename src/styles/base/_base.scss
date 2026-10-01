@@ -4,6 +4,26 @@ html {
   scroll-behavior: smooth;
 }
 
+// Плавный переход между страницами: старая страница растворяется, новая проявляется.
+// Работает в Chrome, Edge и Safari 18.2+; в остальных браузерах переход обычный, без анимации.
+// Если в системе отключены анимации — тоже без неё
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.3s;
+    animation-timing-function: ease;
+  }
+
+  // шапка в переходе не участвует: остаётся на месте и не мигает
+  .header {
+    view-transition-name: header;
+  }
+}
+
 body {
   display: flex;
   flex-direction: column;
